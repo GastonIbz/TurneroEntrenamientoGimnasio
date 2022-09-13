@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Gimnasio.BD.Data.Entidades
         [MaxLength(8, ErrorMessage = "El DNI no debe superar los {1} caracteres")]
         public string DNI { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La Contraseña es obligatoria.")]
         [MaxLength(12, ErrorMessage = "La contraseña no es valida, no debe superar los {1} caracteres")]
         public string Password { get; set; }
 
@@ -25,6 +26,8 @@ namespace Gimnasio.BD.Data.Entidades
         public string NombreCompleto { get; set; }
 
         public string ImagenPerfil { get; set; }
+
+         public List<Inscripcion> ListaInscripcion { get; set; }
     }
 }
 

@@ -4,6 +4,7 @@ using Gimnasio.BD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gimnasio.BD.Migrations
 {
     [DbContext(typeof(BDContext))]
-    partial class BDContextModelSnapshot : ModelSnapshot
+    [Migration("20220913140654_change")]
+    partial class change
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,21 +24,6 @@ namespace Gimnasio.BD.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AlumnoInscripcion", b =>
-                {
-                    b.Property<int>("ListaAlumnoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ListaInscripcionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListaAlumnoId", "ListaInscripcionId");
-
-                    b.HasIndex("ListaInscripcionId");
-
-                    b.ToTable("AlumnoInscripcion");
-                });
-
             modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Alumno", b =>
                 {
                     b.Property<int>("Id")
@@ -44,9 +31,6 @@ namespace Gimnasio.BD.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CreacionId")
-                        .HasColumnType("int");
 
                     b.Property<string>("DNI")
                         .IsRequired()
@@ -62,10 +46,16 @@ namespace Gimnasio.BD.Migrations
                     b.Property<DateTime?>("FechaModif")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdCreacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdModificacion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImagenPerfil")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ModificacionId")
+                    b.Property<int?>("InscripcionId")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreCompleto")
@@ -82,6 +72,8 @@ namespace Gimnasio.BD.Migrations
 
                     b.HasIndex("EntrenamientoId");
 
+                    b.HasIndex("InscripcionId");
+
                     b.HasIndex(new[] { "DNI" }, "AlumnoDNI_UQ")
                         .IsUnique();
 
@@ -96,28 +88,25 @@ namespace Gimnasio.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CreacionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("FechaCreacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("FechaModif")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("InscripcionId")
+                    b.Property<int>("IdCreacion")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModificacionId")
+                    b.Property<int>("IdModificacion")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InscripcionId")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreClase")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<int>("ProfesorId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -134,15 +123,6 @@ namespace Gimnasio.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AlumnoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreacionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EntrenamientoId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("FechaCreacion")
                         .HasColumnType("datetime2");
 
@@ -156,15 +136,27 @@ namespace Gimnasio.BD.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InscripcionId")
+                    b.Property<int>("IdAlumno")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModificacionId")
+                    b.Property<int>("IdCreacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEntrenamiento")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdInscripcion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdModificacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProfesor")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "EntrenamientoId", "InscripcionId" }, "InscripcionEntrenamientoId_UQ")
+                    b.HasIndex(new[] { "IdEntrenamiento", "IdInscripcion" }, "InscripcionEntrenamientoId_UQ")
                         .IsUnique();
 
                     b.ToTable("TablaInscripciones");
@@ -177,9 +169,6 @@ namespace Gimnasio.BD.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CreacionId")
-                        .HasColumnType("int");
 
                     b.Property<string>("DNI")
                         .IsRequired()
@@ -195,13 +184,16 @@ namespace Gimnasio.BD.Migrations
                     b.Property<DateTime?>("FechaModif")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdCreacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdModificacion")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImagenPerfil")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("InscripcionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModificacionId")
                         .HasColumnType("int");
 
                     b.Property<string>("NombreCompleto")
@@ -226,26 +218,15 @@ namespace Gimnasio.BD.Migrations
                     b.ToTable("TablaProfesores");
                 });
 
-            modelBuilder.Entity("AlumnoInscripcion", b =>
-                {
-                    b.HasOne("Gimnasio.BD.Data.Entidades.Alumno", null)
-                        .WithMany()
-                        .HasForeignKey("ListaAlumnoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Gimnasio.BD.Data.Entidades.Inscripcion", null)
-                        .WithMany()
-                        .HasForeignKey("ListaInscripcionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Alumno", b =>
                 {
                     b.HasOne("Gimnasio.BD.Data.Entidades.Entrenamiento", null)
                         .WithMany("ListaAlumno")
                         .HasForeignKey("EntrenamientoId");
+
+                    b.HasOne("Gimnasio.BD.Data.Entidades.Inscripcion", null)
+                        .WithMany("ListaAlumno")
+                        .HasForeignKey("InscripcionId");
                 });
 
             modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Entrenamiento", b =>
@@ -275,6 +256,8 @@ namespace Gimnasio.BD.Migrations
 
             modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Inscripcion", b =>
                 {
+                    b.Navigation("ListaAlumno");
+
                     b.Navigation("ListaEntrenamiento");
 
                     b.Navigation("ListaProfesor");
