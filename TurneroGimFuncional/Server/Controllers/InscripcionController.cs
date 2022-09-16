@@ -7,15 +7,15 @@ namespace TurneroGimFuncional.Server.Controllers
 {
     [ApiController]
     [Route("api/Alumnos")]
-    public class InscripcionController : ControllerBase
+    public class AlumnosController : ControllerBase
     {
         private readonly BDContext context;
-        public InscripcionController(BDContext context)
+        public AlumnosController(BDContext context)
         {
             this.context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Alumno>>>Get()
+        public async Task<ActionResult<List<Alumno>>> Get()
         {
             return await context.TablaAlumnos.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace TurneroGimFuncional.Server.Controllers
         public async Task<ActionResult<Alumno>> Get(int id)
         {
 
-            var alumno = await context.TablaAlumnos.Where(Al => Al.Id == id).FirstOrDefaultAsync();
+            var alumno = await context.TablaAlumnos.Where(Al => Al.Id == id).Include(ins => ins.ListaInscripcion).FirstOrDefaultAsync();
 
             if (alumno == null)
             {
@@ -34,5 +34,22 @@ namespace TurneroGimFuncional.Server.Controllers
         }
 
 
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Post(Entrenamiento entrenamiento)
+        {
+            try
+            {
+                context.TablaEntrenamientos.Add(entrenamiento);
+                await context.SaveChangesAsync();
+                return entrenamiento.Id;
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
+

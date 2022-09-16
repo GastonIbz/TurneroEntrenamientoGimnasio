@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 // Add services to the container.
-
+builder.Services.AddControllersWithViews().AddJsonOptions(
+    x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
