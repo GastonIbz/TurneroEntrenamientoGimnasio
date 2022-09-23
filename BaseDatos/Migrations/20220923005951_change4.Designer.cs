@@ -4,6 +4,7 @@ using Gimnasio.BD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gimnasio.BD.Migrations
 {
     [DbContext(typeof(BDContext))]
-    partial class BDContextModelSnapshot : ModelSnapshot
+    [Migration("20220923005951_change4")]
+    partial class change4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,6 +93,9 @@ namespace Gimnasio.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AlumnoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreacionId")
                         .HasColumnType("int");
 
@@ -111,14 +116,12 @@ namespace Gimnasio.BD.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("ProfesorId")
+                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InscripcionId");
-
-                    b.HasIndex("ProfesorId");
 
                     b.ToTable("TablaEntrenamientos");
                 });
@@ -157,9 +160,6 @@ namespace Gimnasio.BD.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ModificacionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -251,10 +251,6 @@ namespace Gimnasio.BD.Migrations
                     b.HasOne("Gimnasio.BD.Data.Entidades.Inscripcion", null)
                         .WithMany("ListaEntrenamiento")
                         .HasForeignKey("InscripcionId");
-
-                    b.HasOne("Gimnasio.BD.Data.Entidades.Profesor", null)
-                        .WithMany("ListaEntrenamiento")
-                        .HasForeignKey("ProfesorId");
                 });
 
             modelBuilder.Entity("InscripcionProfesor", b =>
@@ -273,11 +269,6 @@ namespace Gimnasio.BD.Migrations
                 });
 
             modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Inscripcion", b =>
-                {
-                    b.Navigation("ListaEntrenamiento");
-                });
-
-            modelBuilder.Entity("Gimnasio.BD.Data.Entidades.Profesor", b =>
                 {
                     b.Navigation("ListaEntrenamiento");
                 });

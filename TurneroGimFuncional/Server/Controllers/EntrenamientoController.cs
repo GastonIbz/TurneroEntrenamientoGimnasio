@@ -6,21 +6,22 @@ using Microsoft.EntityFrameworkCore;
 namespace TurneroGimFuncional.Server.Controllers
 {
     [ApiController]
-    [Route("api/Inscripcion")]
-    public class InscripcionController : ControllerBase
+    [Route("api/Entrenamientos")]
+    public class EntrenamientoController : ControllerBase
     {
         private readonly BDContext context;
-        public InscripcionController(BDContext context)
+        public EntrenamientoController(BDContext context)
         {
             this.context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<List<Inscripcion>>> Get()
+        public async Task<ActionResult<List<Entrenamiento>>> Get()
         {
-            return await context.TablaInscripciones.ToListAsync();
+            return await context.TablaEntrenamientos.ToListAsync();
         }
 
- 
-     
-        }
     }
+}
+    
+
+

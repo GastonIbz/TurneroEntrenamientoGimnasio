@@ -15,7 +15,8 @@ namespace Gimnasio.BD.Data.Entidades
         [MaxLength(10, ErrorMessage = "El Nombre no debe superar los {1} caracteres")]
         public string NombreClase { get; set; }
 
-        public List<Alumno> ListaAlumno { get; set; }
-        public List<Profesor> ListaProfesor { get; set; }
+     
+
+
     }
 }

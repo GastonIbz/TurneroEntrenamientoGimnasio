@@ -4,6 +4,7 @@ using Gimnasio.BD.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gimnasio.BD.Migrations
 {
     [DbContext(typeof(BDContext))]
-    partial class BDContextModelSnapshot : ModelSnapshot
+    [Migration("20220923020938_change7")]
+    partial class change7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,7 +113,7 @@ namespace Gimnasio.BD.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("ProfesorId")
+                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -254,7 +256,9 @@ namespace Gimnasio.BD.Migrations
 
                     b.HasOne("Gimnasio.BD.Data.Entidades.Profesor", null)
                         .WithMany("ListaEntrenamiento")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InscripcionProfesor", b =>
