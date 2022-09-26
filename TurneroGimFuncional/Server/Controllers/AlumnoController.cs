@@ -32,6 +32,20 @@ namespace TurneroGimFuncional.Server.Controllers
             }
             return alumno;
         }
-     
+
+        [HttpPost]
+        public async Task<ActionResult<Alumno>> Post(Alumno alumno)
+        {
+            try
+            {
+                context.TablaAlumnos.Add(alumno);
+                await context.SaveChangesAsync();
+                return alumno;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         }
     }

@@ -20,7 +20,20 @@ namespace TurneroGimFuncional.Server.Controllers
             return await context.TablaInscripciones.ToListAsync();
         }
 
- 
-     
+        [HttpPost]
+        public async Task<ActionResult<Inscripcion>> Post(Inscripcion inscripcion)
+        {
+            try
+            {
+                context.TablaInscripciones.Add(inscripcion);
+                await context.SaveChangesAsync();
+                return inscripcion;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
         }
     }
+}

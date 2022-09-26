@@ -19,8 +19,8 @@ namespace TurneroGimFuncional.Server.Controllers
         {
             return await context.TablaEntrenamientos.ToListAsync();
         }
-
     }
+
 }
     
 
