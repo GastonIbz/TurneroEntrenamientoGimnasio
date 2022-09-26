@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gimnasio.BD.Migrations
 {
     [DbContext(typeof(BDContext))]
-    [Migration("20220923022320_changeIdProfesor")]
-    partial class changeIdProfesor
+    [Migration("20220926144915_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,7 @@ namespace Gimnasio.BD.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("ProfesorId")
+                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -159,9 +159,6 @@ namespace Gimnasio.BD.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ModificacionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProfesorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -254,9 +251,13 @@ namespace Gimnasio.BD.Migrations
                         .WithMany("ListaEntrenamiento")
                         .HasForeignKey("InscripcionId");
 
-                    b.HasOne("Gimnasio.BD.Data.Entidades.Profesor", null)
+                    b.HasOne("Gimnasio.BD.Data.Entidades.Profesor", "Profesor")
                         .WithMany("ListaEntrenamiento")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profesor");
                 });
 
             modelBuilder.Entity("InscripcionProfesor", b =>

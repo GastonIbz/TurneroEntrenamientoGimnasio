@@ -13,9 +13,9 @@ namespace Gimnasio.BD.Data.Entidades
     [Index(nameof(EntrenamientoId),nameof(InscripcionId), Name = "InscripcionEntrenamientoId_UQ", IsUnique = true)]
     public class Inscripcion : EntityBase
     {
-       
         [Required]
         public int AlumnoId { get; set; }
+     
         [Required]
         public int EntrenamientoId { get; set; }
         [Required]
