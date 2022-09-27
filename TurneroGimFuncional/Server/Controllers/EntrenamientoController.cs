@@ -19,22 +19,10 @@ namespace TurneroGimFuncional.Server.Controllers
         {
             return await context.TablaEntrenamientos.ToListAsync();
         }
-        [HttpPost]
-        public async Task<ActionResult<Entrenamiento>> Post(Entrenamiento entrenamiento)
-        {
-            try
-            {
-                context.TablaEntrenamientos.Add(entrenamiento);
-                await context.SaveChangesAsync();
-                return entrenamiento;
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+
         }
     }
-}
+
     
 
 

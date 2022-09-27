@@ -46,6 +46,41 @@ namespace TurneroGimFuncional.Server.Controllers
             {
                 return BadRequest(e.Message);
             }
+
+          
+
+
         }
+
+        [HttpPut("{id:int}")]
+
+        public ActionResult Put(int id, [FromBody] Alumno alumno)
+        {
+            if (id != alumno.Id)
+            {
+                return BadRequest("Los datos son incorrectos");
+            }
+            var datos = context.TablaAlumnos.Where(Al => Al.Id == id).FirstOrDefault();
+            if (datos == null)
+            {
+                return NotFound("No existe el alumno a modificar");
+            }
+
+            datos.DNI = alumno.DNI;
+            datos.NombreCompleto = alumno.NombreCompleto;
+            datos.Password = alumno.Password;
+
+            try
+            {
+                context.TablaAlumnos.Update(datos);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception Al)
+            {
+
+                return BadRequest($"Los datos no fueron actualizados por: {Al.Message}");
+            }
         }
+    }
     }
