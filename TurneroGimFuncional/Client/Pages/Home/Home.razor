@@ -1,0 +1,43 @@
+﻿@page "/Inicio"
+
+
+
+<h3>Mis Turnos</h3>
+<table>
+    <tr>
+        <th>Alumno</th>
+         <th>Entrenamiento</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+      
+    </tr>
+    @if (inscripciones == null)
+
+    {
+        <tr>Cargando...</tr>
+    }
+    else if(inscripciones.Count == 0)
+    {
+        <tr>No fueron encontrado los datos.</tr>
+    }
+    else
+    {
+        @foreach(var item in inscripciones)
+        {
+            <tr>
+                <td>@item.AlumnoId</td>
+                <td>@item.EntrenamientoId </td>
+                <td>@item.FechaTurno</td>
+                <td>@item.HoraTurno</td>
+            
+             
+            </tr>
+        }
+    }
+</table>
+
+
+@code {
+    List<Inscripcion> inscripciones = new List<Inscripcion>();
+
+}

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BaseDatos\Gimnasio.BD.csproj" />
     <ProjectReference Include="..\Shared\TurneroGimFuncional.Shared.csproj" />
   </ItemGroup>
 
