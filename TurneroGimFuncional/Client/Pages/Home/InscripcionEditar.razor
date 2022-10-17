@@ -1,0 +1,24 @@
+﻿@page "/Inicio/Editar"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+
+<h3>Editar Turno</h3>
+
+<FormInscripcion inscripcion="inscripcion" OnCancel="Cancelar" onValidSubmit="Grabar" />
+
+
+
+@code {
+    private Inscripcion inscripcion = new Inscripcion();
+
+    private void Grabar()
+    {
+
+    }
+
+    private void Cancelar ()
+    {
+        
+    }
+
+}
