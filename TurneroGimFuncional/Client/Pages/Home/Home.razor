@@ -1,5 +1,5 @@
 ﻿@page "/Inicio"
-
+@inject IHttpService http
 
 
 <h3>Mis Turnos</h3>
@@ -28,7 +28,7 @@
                 <td>@item.AlumnoId</td>
                 <td>@item.EntrenamientoId </td>
                 <td>@item.FechaTurno</td>
-                <td>@item.HoraTurno</td>
+
             
              
             </tr>
@@ -38,6 +38,22 @@
 
 
 @code {
-    List<Inscripcion> inscripciones = new List<Inscripcion>();
+    List<Inscripcion> inscripciones;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitializedAsync();
+        await Leer();
+    }
+
+    private async Task Leer()
+    {
+        var respuesta = await http.Get<List<Inscripcion>>("api/Inscripcion");
+        if(!respuesta.Error)
+        {
+            inscripciones = respuesta.Respuesta;
+        }
+    }
 
 }

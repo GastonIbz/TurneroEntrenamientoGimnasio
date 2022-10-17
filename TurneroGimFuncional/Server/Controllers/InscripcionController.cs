@@ -17,7 +17,8 @@ namespace TurneroGimFuncional.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Inscripcion>>> Get()
         {
-            return await context.TablaInscripciones.ToListAsync();
+            var resp = await context.TablaInscripciones.ToListAsync();
+            return resp;
         }
 
         [HttpPost]
