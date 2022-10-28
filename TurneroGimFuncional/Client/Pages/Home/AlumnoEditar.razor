@@ -1,0 +1,46 @@
+﻿@page "/Inicio/Editar/{alumnoId:int}"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+
+<h3>Editar Alumno</h3>
+
+<FormAlumno alumno="alumno" onCancel="Cancelar" onValidSubmit="Grabar" />
+
+
+
+@code {
+    private Alumno alumno = new Alumno();
+    [Parameter] public int alumnoId { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await Mostrar();
+    }
+    private async Task Mostrar()
+    {
+        var respuesta = await http.Get<Alumno>($"api/Alumno/{alumnoId}");
+        if(respuesta.Error)
+        {
+            var body = respuesta.HttpResponseMessage;
+        }
+        else {
+            alumno = respuesta.Respuesta;
+        }
+    }
+
+    private async void Grabar()
+    {
+        var httpRespuesta = await http.Put<Alumno>($"api/Alumno/{alumnoId}", alumno);
+
+         if(httpRespuesta.Error)
+        {
+            var body = httpRespuesta.HttpResponseMessage;
+        }
+        navigationManager.NavigateTo("/Alumno");
+    }
+    private void Cancelar()
+    {
+        navigationManager.NavigateTo("/Alumno");
+    }
+
+}

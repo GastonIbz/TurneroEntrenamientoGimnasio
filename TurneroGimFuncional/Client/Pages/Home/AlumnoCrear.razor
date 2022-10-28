@@ -1,0 +1,29 @@
+﻿@page "/Inicio/Crear"
+@inject IHttpService http
+@inject NavigationManager navigationManager
+
+<h3>Nuevo Alumno</h3>
+
+<FormAlumno alumno="alumno" onCancel="Cancelar" onValidSubmit="Grabar" />
+
+
+@code {
+    private Alumno alumno = new Alumno();
+
+    private async void Grabar()
+    {
+        var httpRespuesta = await http.Post<Alumno>("api/Alumno", alumno);
+        if(httpRespuesta.Error)
+        {
+            var body = httpRespuesta.HttpResponseMessage;
+        }
+        navigationManager.NavigateTo("/Alumno");
+    }
+
+
+    private void Cancelar()
+    {
+        navigationManager.NavigateTo("/Alumno");
+    }
+
+}

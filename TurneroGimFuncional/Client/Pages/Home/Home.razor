@@ -1,59 +1,78 @@
 ﻿@page "/Inicio"
 @inject IHttpService http
+@using Gimnasio.BD.Data.Entidades
 
+<h3>Alumnos</h3>
 
-<h3>Mis Turnos</h3>
+<a class="btn btn-primary" href="Inicio/Crear">Crear nuevo alumno</a>
+
 <table>
     <tr>
-        <th>Alumno</th>
-         <th>Entrenamiento</th>
-        <th>Fecha</th>
-        <th>Hora</th>
-      
+        <th>Nombre Completo</th>
+       <td>
+       </td>
+         <th>DNI</th>
+        <td>
+        </td>
     </tr>
-    @if (inscripciones == null)
+    @if (alumnos == null)
 
     {
         <tr>Cargando...</tr>
     }
-    else if(inscripciones.Count == 0)
+    else if(alumnos.Count == 0)
     {
         <tr>No fueron encontrado los datos.</tr>
     }
     else
     {
-        @foreach(var item in inscripciones)
+        @foreach (var item in alumnos)
         {
             <tr>
-                <td>@item.AlumnoId</td>
-                <td>@item.EntrenamientoId </td>
-                <td>@item.FechaTurno</td>
+                <th>@item.NombreCompleto</th>
+                <td> </td>
+                <th>@item.DNI </th>
+     <td>
+         <a class="btn btn-primary"
+         href="Inicio/Editar/@item.Id">
+         Editar
+     </a>
+    </td>
 
-            
-             
-            </tr>
+     <td>
+         <button class="btn-warning" @onclick="()=>Eliminar(item)">
+             Eliminar
+         </button>
+         
+     </td>
+     </tr>
         }
     }
 </table>
 
+<Validacion></Validacion>
 
 @code {
-    List<Inscripcion> inscripciones;
+    List<Alumno> alumnos;
 
-
+    Alumno AlumnoEliminar;
     protected override async Task OnInitializedAsync()
     {
-        base.OnInitializedAsync();
+       await base.OnInitializedAsync();
         await Leer();
     }
 
     private async Task Leer()
     {
-        var respuesta = await http.Get<List<Inscripcion>>("api/Inscripcion");
+        var respuesta = await http.Get<List<Alumno>>("api/Alumno");
         if(!respuesta.Error)
         {
-            inscripciones = respuesta.Respuesta;
+            alumnos = respuesta.Respuesta;
         }
+    }
+    private void Eliminar (Alumno AlumnoEliminar)
+    {
+
     }
 
 }

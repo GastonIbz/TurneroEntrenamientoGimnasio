@@ -28,6 +28,7 @@ namespace Gimnasio.BD.Data.Entidades
         public string ImagenPerfil { get; set; }
 
          public List<Inscripcion> ListaInscripcion { get; set; }
+
     }
 }
 

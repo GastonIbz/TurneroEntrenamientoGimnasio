@@ -1,0 +1,39 @@
+<EditForm Model="alumno" OnValidSubmit="onValidSubmit">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label> Dni del Alumno </label>
+
+        <div>
+            <InputText class="form-control" @bind-Value="@alumno.DNI" />
+            <ValidationMessage For="@(() =>alumno.DNI)" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label> Nombre del Alumno </label>
+
+        <div>
+            <InputText class="form-control" @bind-Value="@alumno.NombreCompleto" />
+            <ValidationMessage For="@(() =>alumno.NombreCompleto)" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label> Password del Alumno </label>
+        <div>
+            <InputText class="form-control" @bind-Value="@alumno.Password" />
+            <ValidationMessage For="@(() =>alumno.Password)" />
+
+        </div>
+    </div>
+    <br/>
+    <button class="btn-primary" type="submit"> Aceptar </button>
+    <button class="btn-secondary" @onclick="onCancel"> Cancelar </button>
+
+</EditForm>
+
+@code {
+    [Parameter] public Alumno alumno { get; set; }
+    [Parameter] public EventCallback onValidSubmit { get; set; }
+    [Parameter] public EventCallback onCancel { get; set; }
+}

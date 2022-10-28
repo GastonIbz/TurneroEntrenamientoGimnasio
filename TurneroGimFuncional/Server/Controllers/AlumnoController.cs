@@ -82,5 +82,26 @@ namespace TurneroGimFuncional.Server.Controllers
                 return BadRequest($"Los datos no fueron actualizados por: {Al.Message}");
             }
         }
+            [HttpDelete("{id:int}")]
+            public ActionResult Delete(int id)
+            {
+                var datos = context.TablaAlumnos.Where(x=>x.Id==id).FirstOrDefault();
+
+            if(datos==null)
+                {
+                    return NotFound($"El registro {id} no fue encontrado");
+                }
+                try
+                {
+                    context.TablaAlumnos.Remove(datos);
+                    context.SaveChanges();
+                    return Ok($"El registro de {datos.DNI} ha sido borrado.");
+                }
+                catch (Exception e)
+                {
+                    return BadRequest($"Los datos no pudieron eliminarse por:{e.Message}");
+                }
+            }
+        }
     }
-    }
+

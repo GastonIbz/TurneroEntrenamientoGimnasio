@@ -45,6 +45,56 @@ namespace TurneroGimFuncional.Server.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpDelete("{id:int}")]
+        public ActionResult Delete(int id)
+        {
+            var datos = context.TablaProfesores.Where(x => x.Id == id).FirstOrDefault();
+
+            if (datos == null)
+            {
+                return NotFound($"El registro {id} no fue encontrado");
+            }
+            try
+            {
+                context.TablaProfesores.Remove(datos);
+                context.SaveChanges();
+                return Ok($"El registro de {datos.DNI} ha sido borrado.");
+            }
+            catch (Exception e)
+            {
+                return BadRequest($"Los datos no pudieron eliminarse por:{e.Message}");
+            }
+        }
+        [HttpPut("{id:int}")]
+
+        public ActionResult Put(int id, [FromBody] Profesor profesor)
+        {
+            if (id != profesor.Id)
+            {
+                return BadRequest("Los datos son incorrectos");
+            }
+            var datos = context.TablaProfesores.Where(Al => Al.Id == id).FirstOrDefault();
+            if (datos == null)
+            {
+                return NotFound("No existe el profesor a modificar");
+            }
+
+            datos.DNI = profesor.DNI;
+            datos.NombreCompleto = profesor.NombreCompleto;
+            datos.Password = profesor.Password;
+
+            try
+            {
+                context.TablaProfesores.Update(datos);
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception Al)
+            {
+
+                return BadRequest($"Los datos no fueron actualizados por: {Al.Message}");
+            }
+        }
     }
 }
     
