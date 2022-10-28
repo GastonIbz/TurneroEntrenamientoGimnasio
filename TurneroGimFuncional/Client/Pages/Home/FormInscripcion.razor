@@ -1,25 +1,10 @@
 ﻿<h3>FormInscripcion</h3>
 
-<EditForm Model="inscripcion" OnInvalidSubmit="onValidSubmit"> 
-  
-    <div class="form-group"> 
 
-        <label> Id </label>
+</EditForm>
 
-        <div>
-          <InputText class="form-control" @bind-Value="@inscripcion.InscripcionId"/>
-        </div>
-    </div>
-
-       <div class="form-group"> 
-
-        <label>  Id del Alumno </label>
- 
-        <div>
-          <InputText class="form-control" @bind-Value="@inscripcion.AlumnoId"/>
-        </div>
-    </div>
-           <div class="form-group"> 
+@code {
+    [Parameter] public Inscripcion inscripcion { get; set; } 
 
         <label>  Id del Entrenamiento </label>
  
