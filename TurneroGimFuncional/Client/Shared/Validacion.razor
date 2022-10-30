@@ -1,4 +1,4 @@
-﻿@if(MostrarConfirmacion)
+﻿@if (MostrarValidacion)
 {
     <div class="modal-backdrop show"></div>
     <div class="modal fade show" id="exampleModal" tabindex="-1"
@@ -17,7 +17,7 @@
                     @ChildContent
                 </div>
                 <div class="modal-footer">
-                    @if (verCancelar)
+                    @if (verCancelar) 
                     {
                         <button @onclick="onCancel" type="button" class="btn btn-outline-dark"
                         data-dismiss="modal">
@@ -37,7 +37,7 @@
 }
 
 @code {
-    private bool MostrarConfirmacion = false;
+    private bool MostrarValidacion = false;
     [Parameter] public bool verCancelar { get; set; } = true;
     [Parameter] public bool verOk { get; set; } = true;
 
@@ -50,5 +50,11 @@
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
+    public void Ver()
+    {
+        MostrarValidacion = true;
+    }
+
+    public void Ocultar() => MostrarValidacion = false;
 
 }

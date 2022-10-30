@@ -4,7 +4,7 @@
 
 <h3>Alumnos</h3>
 
-<a class="btn btn-primary" href="Inicio/Crear">Crear nuevo alumno</a>
+<a class="btn btn-warning" href="Inicio/Crear">Crear nuevo alumno</a>
 
 <table>
     <tr>
@@ -33,14 +33,14 @@
                 <td> </td>
                 <th>@item.DNI </th>
      <td>
-         <a class="btn btn-primary"
+                    <a class="btn btn-outline-secondary"
          href="Inicio/Editar/@item.Id">
          Editar
      </a>
     </td>
 
      <td>
-         <button class="btn-warning" @onclick="()=>Eliminar(item)">
+                    <button class="btn btn-outline-danger" @onclick="()=>Eliminar(item)">
              Eliminar
          </button>
          
@@ -50,15 +50,34 @@
     }
 </table>
 
-<Validacion></Validacion>
+<Validacion @ref="validacion"
+    
+    verCancelar="true"
+    verOk="true"
+textCancelar="Cancelar"
+textOk="Confirmar"
+Titulo="Eliminar Alumno"
+onCancel="Cancelar"
+onConfirm="Borrar">
+<div>
+    <h4> Esta por eliminar al alumno @AlumnoEliminar.NombreCompleto </h4>
+    <br />
+    <h5>¿Usted está seguro que desea continuar?</h5>
+
+    <br/>
+     <h5> Esta operación es irreversible.</h5>  
+    </div>
+            
+   </Validacion>
 
 @code {
     List<Alumno> alumnos;
+    Validacion validacion;
+    Alumno AlumnoEliminar=new();
 
-    Alumno AlumnoEliminar;
     protected override async Task OnInitializedAsync()
     {
-       await base.OnInitializedAsync();
+        await base.OnInitializedAsync();
         await Leer();
     }
 
@@ -70,9 +89,26 @@
             alumnos = respuesta.Respuesta;
         }
     }
-    private void Eliminar (Alumno AlumnoEliminar)
+    private void Eliminar (Alumno alumnoEliminar)
     {
-
+        AlumnoEliminar = alumnoEliminar;
+        validacion.Ver();
     }
 
+    private void Cancelar ()
+    {
+        validacion.Ocultar();
+    }
+    private async Task Borrar()
+    {
+        var respuesta = await http.Delete($"api/Alumno/{AlumnoEliminar.Id}");
+        if(respuesta.Error)
+        {
+            var body = "Error";
+        }
+        Cancelar();
+        await Leer();
+    }
 }
+
+
