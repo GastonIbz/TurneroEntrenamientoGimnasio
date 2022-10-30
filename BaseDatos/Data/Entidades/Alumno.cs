@@ -15,6 +15,7 @@ namespace Gimnasio.BD.Data.Entidades
         [Required(ErrorMessage = "El DNI de la Persona es obligatorio.")]
 
         [MaxLength(8, ErrorMessage = "El DNI no debe superar los {1} caracteres")]
+        [MinLength(8, ErrorMessage = "El DNI debe tener {1} caracteres")]
         public string DNI { get; set; }
 
         [Required(ErrorMessage = "La Contraseña es obligatoria.")]

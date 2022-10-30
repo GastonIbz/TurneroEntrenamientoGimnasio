@@ -6,21 +6,25 @@
 
 main {
     flex: 1;
+    
+    background-color:#ffffff;
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, #ff6a00 0%, #6b045c 70%);
+    background-image: linear-gradient(180deg, #014969 20%, #ff6a00 100%);
 }
 
 .top-row {
-    background-color: #052c58;
-    border-bottom: 1px solid #d6d5d5;
+    background-color: #01405b;
+    border-bottom: 1px solid #014969;
     justify-content: flex-end;
     height: 3.5rem;
     display: flex;
     align-items: center;
 }
-
+    .top-row a {
+        color: white;
+    }
     .top-row ::deep a, .top-row ::deep .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
@@ -75,7 +79,8 @@ main {
     }
 
     .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 3rem !important;
+        padding-right: 2rem !important;
     }
+ 
 }
